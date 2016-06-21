@@ -61,6 +61,9 @@
     }
 
     function drawFigure(x, y, figure, color) {
+        var coordinateValue = [];
+        coordinateValue.x = [];
+        coordinateValue.y = [];
         for (var i = 0; i < figure.length; i++) {
             for(var ii =0; ii<figure[i].length; ii++) {
                 if(figure[i][ii] == 0) {
@@ -80,8 +83,11 @@
                          20,
                          20
                 );
+                coordinateValue.x.push(x+ii);
+                coordinateValue.y.push(y+i);
             }
         }
+        return coordinateValue;
     }
 
 //    function mainLoop(i) {
@@ -104,6 +110,7 @@
     var shagVert = 0;
     var shangVertOld = 0;
     var upDown = 0;
+    var figureCoordinate;
     document.getElementById('key').onkeydown = function (e) {
         oldShang = shag;
         if(e.keyCode == 39) {
@@ -130,12 +137,13 @@
             shag = oldShang;
             console.log('stoped');
         }
-        console.log(shag);
+
+
+
         clearGame();
 
-        console.log(e.keyCode);
         drawFigure(shag,shagVert,object,'green');
-        drawFigure(6,0,stena,'red');
+        figureCoordinate = drawFigure(6,0,stena,'red');
     };
 
     clearGame();
