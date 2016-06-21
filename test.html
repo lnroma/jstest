@@ -1,0 +1,147 @@
+<html>
+<head>
+    <title>check collision test</title>
+</head>
+<body>
+<canvas id="main" height="600" width="400"></canvas>
+<input id="key">
+<script>
+    var main = document.getElementById('main');
+    var context = main.getContext('2d');
+
+
+    var field = [
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+    ];
+
+    var snake = [[1, 1, 1, 1]];
+    var object = [[1]];
+
+    var stena = [
+            [1,0,0],
+            [1,0,0],
+            [1,1,0],
+            [1,1,1],
+            [1,1,0],
+            [1,1,1],
+            [1,1,0]
+    ];
+
+    function clearGame() {
+
+//        context.fillStyle = 'grey';
+//        context.fillRect(0,0,main.width,main.height);
+//
+//        for(var i = 0;i<(main.height/20); i++) {
+//            var coordinate = 20*i;
+//            context.moveTo(0,coordinate);
+//            context.lineTo(main.width, coordinate);
+//            context.stroke();
+//        }
+//
+//        for(var w = 0; w<(main.width/20);w++) {
+//            var coordinate_x = 20*w;
+//            context.moveTo(coordinate_x,0);
+//            context.lineTo(coordinate_x,main.height);
+//            context.stroke();
+//        }
+        drawFigure(0, 0, field, 'gray');
+    }
+
+    function drawFigure(x, y, figure, color) {
+        for (var i = 0; i < figure.length; i++) {
+            for(var ii =0; ii<figure[i].length; ii++) {
+                if(figure[i][ii] == 0) {
+                    continue;
+                }
+                context.fillStyle = 'black';
+                context.strokeRect(
+                        (x+ii) * 20,
+                        (y+i) * 20,
+                        20,
+                        20
+                );
+                context.fillStyle = color;
+                context.fillRect(
+                        (x+ii) * 20,
+                        (y+i) * 20,
+                         20,
+                         20
+                );
+            }
+        }
+    }
+
+//    function mainLoop(i) {
+//        setTimeout(
+//                function () {
+//                    console.log('test',i);
+//                    clearGame();
+//                    drawSnake(10+i, 10, 't');
+//                    drawFigure(0,0,object,'red');
+//                    i = i+1;
+//                    mainLoop(i);
+//                }, 1000
+//        );
+//    }
+//    document.getElementsByTagName('html').onkeydown(function (event) {
+//       console.log(event.keyCode);
+//    });
+    var shag = 0;
+    var oldShang =0;
+    var shagVert = 0;
+    var shangVertOld = 0;
+    var upDown = 0;
+    document.getElementById('key').onkeydown = function (e) {
+        oldShang = shag;
+        if(e.keyCode == 39) {
+            shag++;
+            if(shag == 8) shag=0;
+        }
+
+        if(e.keyCode == 37) {
+            shag--;
+            if(shag == -1) shag=7;
+        }
+
+        if(e.keyCode == 40) {
+            shagVert++;
+            if(shagVert == 12 ) shagVert=0;
+        }
+
+        if(e.keyCode == 38) {
+            shagVert--;
+            if(shagVert == -1) shagVert = 12;
+        }
+
+        if(shag == 6 ) {
+            shag = oldShang;
+            console.log('stoped');
+        }
+        console.log(shag);
+        clearGame();
+
+        console.log(e.keyCode);
+        drawFigure(shag,shagVert,object,'green');
+        drawFigure(6,0,stena,'red');
+    };
+
+    clearGame();
+    drawFigure(0,0,object,'green');
+    drawFigure(6,0,stena,'red');
+
+</script>
+</body>
+</html>
